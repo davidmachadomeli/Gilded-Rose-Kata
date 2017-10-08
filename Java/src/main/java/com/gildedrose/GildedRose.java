@@ -20,6 +20,8 @@ class GildedRose {
             return new SulfurasCategory();
         } else if (item.name.equals("Aged Brie")) {
             return new CheeseCategory();
+        } else if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+            return new BackstagePassCategory();
         }
         return new RegularItemCategory();
     }
