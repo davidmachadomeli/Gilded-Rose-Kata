@@ -18,6 +18,8 @@ class GildedRose {
     private ItemCategory categorizeItem(Item item) {
         if (item.name.equals("Sulfuras, Hand of Ragnaros")) {
             return new SulfurasCategory();
+        } else if (item.name.equals("Aged Brie")) {
+            return new CheeseCategory();
         }
         return new RegularItemCategory();
     }
