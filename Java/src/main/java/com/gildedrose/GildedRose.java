@@ -16,6 +16,9 @@ class GildedRose {
     }
 
     private ItemCategory categorizeItem(Item item) {
+        if (item.name.equals("Sulfuras, Hand of Ragnaros")) {
+            return new SulfurasCategory();
+        }
         return new RegularItemCategory();
     }
 
