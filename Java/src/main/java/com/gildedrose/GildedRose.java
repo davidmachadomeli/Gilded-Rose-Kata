@@ -16,68 +16,19 @@ class GildedRose {
     }
 
     private ItemCategory categorizeItem(Item item) {
-        return new ItemCategory();
+        return new RegularItemCategory();
     }
 
     private void updateQualityForOneItem(Item item, ItemCategory category) {
-        this.updateQuality(item, category);
-        this.updateSellIn(item, category);
+        category.updateQuality(item);
+        category.updateSellIn(item);
 
         if (this.hasExpired(item))
-            this.updateExpired(item, category);
+            category.updateExpired(item);
     }
 
     private boolean hasExpired(Item item) {
         return item.sellIn < 0;
-    }
-
-    private void updateExpired(Item item, ItemCategory category) {
-        if (item.name.equals("Aged Brie")) {
-            incrementQuality(item);
-        } else if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-            item.quality = 0;
-        } else if (item.name.equals("Sulfuras, Hand of Ragnaros")) {
-        } else {
-            decrementQuality(item);
-        }
-    }
-
-    private void updateSellIn(Item item, ItemCategory category) {
-        if (item.name.equals("Sulfuras, Hand of Ragnaros")) {
-            return;
-        }
-        item.sellIn--;
-    }
-
-    private void updateQuality(Item item, ItemCategory category) {
-        if (item.name.equals("Aged Brie")) {
-            incrementQuality(item);
-        } else if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-            incrementQuality(item);
-
-            if (item.sellIn < 11) {
-                incrementQuality(item);
-            }
-
-            if (item.sellIn < 6) {
-                incrementQuality(item);
-            }
-        } else if (item.name.equals("Sulfuras, Hand of Ragnaros")) {
-        } else {
-            decrementQuality(item);
-        }
-    }
-
-    private void decrementQuality(Item item) {
-        if (item.quality > 0) {
-            item.quality--;
-        }
-    }
-
-    private void incrementQuality(Item item) {
-        if (item.quality < 50) {
-            item.quality++;
-        }
     }
 
     @Override
