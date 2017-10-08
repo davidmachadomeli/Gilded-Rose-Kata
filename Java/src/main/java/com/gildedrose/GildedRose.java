@@ -1,5 +1,7 @@
 package com.gildedrose;
 
+import com.gildedrose.categories.*;
+
 class GildedRose {
 
     private Item[] items;
@@ -9,21 +11,8 @@ class GildedRose {
     }
 
     public void updateQuality() {
-        for (Item item : this.items) {
-            ItemCategory category = this.categorizeItem(item);
-            this.updateQualityForOneItem(item, category);
-        }
-    }
-
-    private ItemCategory categorizeItem(Item item) {
-        if (item.name.equals("Sulfuras, Hand of Ragnaros")) {
-            return new SulfurasCategory();
-        } else if (item.name.equals("Aged Brie")) {
-            return new CheeseCategory();
-        } else if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-            return new BackstagePassCategory();
-        }
-        return new RegularItemCategory();
+        for (Item item : this.items)
+            this.updateQualityForOneItem(item, new ItemCategoryStrategy().categorize(item));
     }
 
     private void updateQualityForOneItem(Item item, ItemCategory category) {
