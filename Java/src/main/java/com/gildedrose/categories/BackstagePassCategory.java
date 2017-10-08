@@ -1,4 +1,6 @@
-package com.gildedrose;
+package com.gildedrose.categories;
+
+import com.gildedrose.Item;
 
 public class BackstagePassCategory implements ItemCategory {
 
@@ -6,13 +8,11 @@ public class BackstagePassCategory implements ItemCategory {
     public void updateQuality(Item item) {
         incrementQuality(item);
 
-        if (item.sellIn <= 10) {
+        if (item.sellIn <= 10)
             incrementQuality(item);
-        }
 
-        if (item.sellIn <= 5) {
+        if (item.sellIn <= 5)
             incrementQuality(item);
-        }
     }
 
     @Override

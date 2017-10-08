@@ -1,4 +1,6 @@
-package com.gildedrose;
+package com.gildedrose.categories;
+
+import com.gildedrose.Item;
 
 public class RegularItemCategory implements ItemCategory {
 

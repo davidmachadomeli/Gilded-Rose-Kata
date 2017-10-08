@@ -1,17 +1,17 @@
-package com.gildedrose;
+package com.gildedrose.categories;
+
+import com.gildedrose.Item;
 
 public interface ItemCategory {
 
     default void decrementQuality(Item item) {
-        if (item.quality > 0) {
+        if (item.quality > 0)
             item.quality--;
-        }
     }
 
     default void incrementQuality(Item item) {
-        if (item.quality < 50) {
+        if (item.quality < 50)
             item.quality++;
-        }
     }
 
     void updateQuality(Item item);
