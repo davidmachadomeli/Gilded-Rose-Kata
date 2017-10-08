@@ -6,11 +6,11 @@ public class BackstagePassCategory implements ItemCategory {
     public void updateQuality(Item item) {
         incrementQuality(item);
 
-        if (item.sellIn < 11) {
+        if (item.sellIn <= 10) {
             incrementQuality(item);
         }
 
-        if (item.sellIn < 6) {
+        if (item.sellIn <= 5) {
             incrementQuality(item);
         }
     }
