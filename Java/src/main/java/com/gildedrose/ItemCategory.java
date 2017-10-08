@@ -16,7 +16,9 @@ public interface ItemCategory {
 
     void updateQuality(Item item);
 
-    void updateSellIn(Item item);
+    default void updateSellIn(Item item) {
+        item.sellIn--;
+    }
 
     void updateExpired(Item item);
 }
