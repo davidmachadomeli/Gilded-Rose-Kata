@@ -13,53 +13,74 @@ func main() {
 }
 
 func GildedRose(items []*Item) {
-	for i := 0; i < len(items); i++ {
+	for _, item := range items {
+		updateQualityForOneItem(item)
+	}
+}
 
-		if items[i].name != "Aged Brie" && items[i].name != "Backstage passes to a TAFKAL80ETC concert" {
-			if items[i].quality > 0 {
-				if items[i].name != "Sulfuras, Hand of Ragnaros" {
-					items[i].quality = items[i].quality - 1
-				}
-			}
-		} else {
-			if items[i].quality < 50 {
-				items[i].quality = items[i].quality + 1
-				if items[i].name == "Backstage passes to a TAFKAL80ETC concert" {
-					if items[i].sellIn < 11 {
-						if items[i].quality < 50 {
-							items[i].quality = items[i].quality + 1
-						}
-					}
-					if items[i].sellIn < 6 {
-						if items[i].quality < 50 {
-							items[i].quality = items[i].quality + 1
-						}
-					}
-				}
-			}
-		}
+func updateQualityForOneItem(item *Item) {
+	updateQualityOfItem(item)
+	updateSellInOfItem(item)
 
-		if items[i].name != "Sulfuras, Hand of Ragnaros" {
-			items[i].sellIn = items[i].sellIn - 1
-		}
-
-		if items[i].sellIn < 0 {
-			if items[i].name != "Aged Brie" {
-				if items[i].name != "Backstage passes to a TAFKAL80ETC concert" {
-					if items[i].quality > 0 {
-						if items[i].name != "Sulfuras, Hand of Ragnaros" {
-							items[i].quality = items[i].quality - 1
-						}
-					}
-				} else {
-					items[i].quality = items[i].quality - items[i].quality
-				}
-			} else {
-				if items[i].quality < 50 {
-					items[i].quality = items[i].quality + 1
-				}
-			}
-		}
+	if(hasExpired(item)){
+		updateQualityOfExpiredItem(item)
 	}
 
+}
+
+func updateQualityOfItem(item *Item) {
+	if item.name == "Sulfuras, Hand of Ragnaros" {
+	} else if item.name == "Aged Brie" {
+		increaseQuality(item)
+	} else if item.name == "Backstage passes to a TAFKAL80ETC concert" {
+		increaseQuality(item)
+
+		if (item.sellIn <= 10){
+			increaseQuality(item)
+		}
+
+		if (item.sellIn <= 5) {
+			increaseQuality(item)
+		}
+	} else {
+		decreaseQuality(item)
+	}
+}
+
+func updateQualityOfExpiredItem(item *Item) {
+	if item.name == "Sulfuras, Hand of Ragnaros" {
+	} else if item.name == "Aged Brie" {
+		increaseQuality(item)
+	} else if item.name == "Backstage passes to a TAFKAL80ETC concert" {
+		item.quality = 0
+	} else {
+		decreaseQuality(item)
+	}
+}
+
+func updateSellInOfItem(item *Item) {
+	if item.name == "Sulfuras, Hand of Ragnaros" {
+	} else if item.name == "Aged Brie" {
+		item.sellIn = item.sellIn - 1
+	} else if item.name == "Backstage passes to a TAFKAL80ETC concert" {
+		item.sellIn = item.sellIn - 1
+	} else {
+		item.sellIn = item.sellIn - 1
+	}
+}
+
+func increaseQuality(item *Item) {
+	if item.quality < 50 {
+		item.quality = item.quality + 1
+	}
+}
+
+func decreaseQuality(item *Item) {
+	if item.quality > 0 {
+		item.quality = item.quality - 1
+	}
+}
+
+func hasExpired(item *Item) bool {
+	return item.sellIn < 0
 }

@@ -38,7 +38,7 @@ func Test_Update_Quality_For_Until_Items_Expire(t *testing.T) {
 		GildedRose(its)
 	}
 
-	assert.Equal(t, "Sword of Burning Fire, 0, 16\nAged Brie, 0, 10\nVest of Hermes, -5, 0\nBackstage passes to a TAFKAL80ETC concert, 0, 49\nSulfuras, Hand of Ragnaros, 0, 80\nSulfuras, Hand of Ragnaros, -1, 80\n",
+	assert.Equal(t, "Sword of Burning Fire, -1, 14\nAged Brie, -1, 12\nVest of Hermes, -6, 0\nBackstage passes to a TAFKAL80ETC concert, -1, 0\nSulfuras, Hand of Ragnaros, 0, 80\nSulfuras, Hand of Ragnaros, -1, 80\n",
 		printItems(its))
 }
 //
