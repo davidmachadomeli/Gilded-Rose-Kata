@@ -2,16 +2,12 @@ package main
 
 import "fmt"
 
-type Item struct {
-	name            string
-	sellIn, quality int
-}
-
-func main() {
-	its := []*Item{}
-
-	updater := GildedRose{Items: its}
-	updater.UpdateQuality()
+var itemsBehaviour = map[string]ItemBehaviour{
+	"Sulfuras, Hand of Ragnaros": &Legendary{},
+	"Aged Brie": &Inverse{},
+	"Backstage passes to a TAFKAL80ETC concert": &Concert{},
+	"Sword of Burning Fire": &Normal{},
+	"Vest of Hermes": &Normal{},
 }
 
 type GildedRose struct {
@@ -25,27 +21,40 @@ func (gr *GildedRose) UpdateQuality() {
 }
 
 func (gr *GildedRose) updateQualityForOneItem(item *Item) {
-	gr.updateQualityOfItem(item)
-	gr.updateSellInOfItem(item)
-
-	if(gr.hasExpired(item)){
-		gr.updateQualityOfExpiredItem(item)
-	}
-
+	itemsBehaviour[item.name].Update(item)
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 func (gr *GildedRose) updateQualityOfItem(item *Item) {
 	if item.name == "Sulfuras, Hand of Ragnaros" {
+
 	} else if item.name == "Aged Brie" {
 		gr.increaseQuality(item)
 	} else if item.name == "Backstage passes to a TAFKAL80ETC concert" {
 		gr.increaseQuality(item)
 
-		if (item.sellIn <= 10){
+		if  item.sellIn <= 10 {
 			gr.increaseQuality(item)
 		}
 
-		if (item.sellIn <= 5) {
+		if item.sellIn <= 5 {
 			gr.increaseQuality(item)
 		}
 	} else {
@@ -55,6 +64,7 @@ func (gr *GildedRose) updateQualityOfItem(item *Item) {
 
 func (gr *GildedRose) updateQualityOfExpiredItem(item *Item) {
 	if item.name == "Sulfuras, Hand of Ragnaros" {
+
 	} else if item.name == "Aged Brie" {
 		gr.increaseQuality(item)
 	} else if item.name == "Backstage passes to a TAFKAL80ETC concert" {
@@ -66,6 +76,7 @@ func (gr *GildedRose) updateQualityOfExpiredItem(item *Item) {
 
 func (gr *GildedRose) updateSellInOfItem(item *Item) {
 	if item.name == "Sulfuras, Hand of Ragnaros" {
+
 	} else if item.name == "Aged Brie" {
 		item.sellIn = item.sellIn - 1
 	} else if item.name == "Backstage passes to a TAFKAL80ETC concert" {
