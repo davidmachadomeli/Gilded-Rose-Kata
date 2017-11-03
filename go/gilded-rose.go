@@ -1,5 +1,6 @@
 package main
 
+import "fmt"
 
 type Item struct {
 	name            string
@@ -9,56 +10,61 @@ type Item struct {
 func main() {
 	its := []*Item{}
 
-	GildedRose(its)
+	updater := GildedRose{Items: its}
+	updater.UpdateQuality()
 }
 
-func GildedRose(items []*Item) {
-	for _, item := range items {
-		updateQualityForOneItem(item)
+type GildedRose struct {
+	Items []*Item
+}
+
+func (gr *GildedRose) UpdateQuality() {
+	for _, item := range gr.Items {
+		gr.updateQualityForOneItem(item)
 	}
 }
 
-func updateQualityForOneItem(item *Item) {
-	updateQualityOfItem(item)
-	updateSellInOfItem(item)
+func (gr *GildedRose) updateQualityForOneItem(item *Item) {
+	gr.updateQualityOfItem(item)
+	gr.updateSellInOfItem(item)
 
-	if(hasExpired(item)){
-		updateQualityOfExpiredItem(item)
+	if(gr.hasExpired(item)){
+		gr.updateQualityOfExpiredItem(item)
 	}
 
 }
 
-func updateQualityOfItem(item *Item) {
+func (gr *GildedRose) updateQualityOfItem(item *Item) {
 	if item.name == "Sulfuras, Hand of Ragnaros" {
 	} else if item.name == "Aged Brie" {
-		increaseQuality(item)
+		gr.increaseQuality(item)
 	} else if item.name == "Backstage passes to a TAFKAL80ETC concert" {
-		increaseQuality(item)
+		gr.increaseQuality(item)
 
 		if (item.sellIn <= 10){
-			increaseQuality(item)
+			gr.increaseQuality(item)
 		}
 
 		if (item.sellIn <= 5) {
-			increaseQuality(item)
+			gr.increaseQuality(item)
 		}
 	} else {
-		decreaseQuality(item)
+		gr.decreaseQuality(item)
 	}
 }
 
-func updateQualityOfExpiredItem(item *Item) {
+func (gr *GildedRose) updateQualityOfExpiredItem(item *Item) {
 	if item.name == "Sulfuras, Hand of Ragnaros" {
 	} else if item.name == "Aged Brie" {
-		increaseQuality(item)
+		gr.increaseQuality(item)
 	} else if item.name == "Backstage passes to a TAFKAL80ETC concert" {
 		item.quality = 0
 	} else {
-		decreaseQuality(item)
+		gr.decreaseQuality(item)
 	}
 }
 
-func updateSellInOfItem(item *Item) {
+func (gr *GildedRose) updateSellInOfItem(item *Item) {
 	if item.name == "Sulfuras, Hand of Ragnaros" {
 	} else if item.name == "Aged Brie" {
 		item.sellIn = item.sellIn - 1
@@ -69,18 +75,32 @@ func updateSellInOfItem(item *Item) {
 	}
 }
 
-func increaseQuality(item *Item) {
+func (gr *GildedRose) increaseQuality(item *Item) {
 	if item.quality < 50 {
 		item.quality = item.quality + 1
 	}
 }
 
-func decreaseQuality(item *Item) {
+func (gr *GildedRose) decreaseQuality(item *Item) {
 	if item.quality > 0 {
 		item.quality = item.quality - 1
 	}
 }
 
-func hasExpired(item *Item) bool {
+func (gr *GildedRose) hasExpired(item *Item) bool {
 	return item.sellIn < 0
+}
+
+func (gr *GildedRose) PrintItems() string {
+	res := ""
+
+	for _, i := range gr.Items {
+		res += gr.printItem(i)
+	}
+
+	return res
+}
+
+func (gr *GildedRose) printItem(i *Item) string {
+	return fmt.Sprintf("%v, %v, %v\n", i.name , i.sellIn, i.quality)
 }
