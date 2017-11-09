@@ -22,5 +22,19 @@ describe('#GildedRose', () => {
           'Sword of Burning Fire -1 14/nAged Brie -1 12/nVest of Hermes -6 0/nBackstage passes to a TAFKAL80ETC concert -1 0/nSulfuras, Hand of Ragnaros 0 80/n'
         );
       });
+
+      it('should test the new Conjured item', () => {
+        const items = [
+          new Item('Conjured health elixir', 10, 25)
+        ]
+
+        const shop = new GildedRose(items);
+
+        [1,2,3,4,5,6,7,8,9,10,11].forEach(() => shop.updateQuality());
+
+        expect(shop.toString()).to.be.equal(
+          'Conjured health elixir -1 1/n'
+        );
+      });
   });
 });

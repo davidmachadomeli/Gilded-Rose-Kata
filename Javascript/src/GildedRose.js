@@ -1,6 +1,7 @@
 import AgedItemUpdater from './items/updaters/AgedItemUpdater';
 import ShowTicketUpdater from './items/updaters/ShowTicketUpdater';
 import LegendaryItemUpdater from './items/updaters/LegendaryItemUpdater';
+import ConjuredItemUpdater from './items/updaters/ConjuredItemUpdater';
 
 import ItemUpdaterResolver from './items/resolvers/ItemUpdaterResolver';
 

@@ -12,7 +12,9 @@ class GenericItemUpdater {
   }
 
   increaseQuality(item) {
-    item.quality += 1;
+    if (item.quality < 50) {
+      item.quality += 1;
+    }
   }
 
   decreaseQuality(item) {

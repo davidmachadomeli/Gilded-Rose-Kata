@@ -1,12 +1,6 @@
 import GenericItemUpdater from './GenericItemUpdater'
 
 class ShowTicketUpdater extends GenericItemUpdater {
-  increaseQuality(item) {
-    if (item.quality < 50) {
-      item.quality += 1;
-    }
-  }
-
   updateQuality(item) {
     this.increaseQuality(item);
 
