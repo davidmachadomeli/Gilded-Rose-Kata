@@ -1,91 +1,31 @@
+import AgedItemUpdater from './items/updaters/AgedItemUpdater';
+import ShowTicketUpdater from './items/updaters/ShowTicketUpdater';
+import LegendaryItemUpdater from './items/updaters/LegendaryItemUpdater';
+
+import ItemUpdaterResolver from './items/resolvers/ItemUpdaterResolver';
+
 class GildedRose {
   constructor(items) {
-    this.PASS_SELL_IN_FIRST_LIMIT = 10;
-    this.PASS_SELL_IN_SECOND_LIMIT = 5;
     this.items = items;
   }
 
   updateQuality() {
-    this.items.forEach(item => this.updateQualityForOneItem(item));
+    this.items.forEach(item => {
+      this.updateQualityForOneItem(item);
+    });
   }
 
   updateQualityForOneItem(item) {
-    this.updateQualityOfItem(item);
-    this.updateSellInOfItem(item);
+    const updater = new ItemUpdaterResolver().resolve(item);
 
+    updater.updateQuality(item);
+    updater.updateSellIn(item);
+
+    // no lo lleve a los updaters para evitar repeticion
+    // se podría armar una logica del tipo `hook` || `event emitter` para ejecutar esto inmediatamente
+    // despues de ejecutar el updateQuality, pero me parece muy complejo.
     if (this.hasExpired(item)) {
-      this.updateQualityOfExpiredItem(item);
-    }
-  }
-
-  updateQualityOfItem(item) {
-    switch (item.name) {
-      case 'Sulfuras, Hand of Ragnaros':
-        break;
-
-      case 'Aged Brie':
-        this.increaseQuality(item);
-        break;
-
-      case 'Backstage passes to a TAFKAL80ETC concert':
-        this.increaseQuality(item);
-
-        if (item.sellIn <= this.PASS_SELL_IN_FIRST_LIMIT) {
-          this.increaseQuality(item);
-        }
-
-        if (item.sellIn <= this.PASS_SELL_IN_SECOND_LIMIT) {
-          this.increaseQuality(item);
-        }
-        break;
-
-      default:
-        this.decreaseQuality(item);
-        break;
-      }
-  }
-
-  updateQualityOfExpiredItem(expiredItem) {
-    switch (expiredItem.name) {
-      case 'Sulfuras, Hand of Ragnaros':
-        break;
-
-      case 'Aged Brie':
-        this.increaseQuality(expiredItem);
-        break;
-
-      case 'Backstage passes to a TAFKAL80ETC concert':
-        expiredItem.quality = 0;
-        break;
-
-      default:
-        this.decreaseQuality(expiredItem);
-        break;
-    }
-  }
-
-  updateSellInOfItem(item) {
-    switch (item.name) {
-      case 'Sulfuras, Hand of Ragnaros':
-        break;
-
-      case 'Aged Brie':
-      case 'Backstage passes to a TAFKAL80ETC concert':
-      default:
-        item.sellIn = item.sellIn - 1;
-        break;
-    }
-  }
-
-  increaseQuality(item) {
-    if (item.quality < 50) {
-      item.quality = item.quality + 1;
-    }
-  }
-
-  decreaseQuality(item) {
-    if (item.quality > 0) {
-      item.quality = item.quality - 1;
+      updater.updateExpired(item);
     }
   }
 
