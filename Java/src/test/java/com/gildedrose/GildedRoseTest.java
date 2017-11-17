@@ -82,9 +82,9 @@ public class GildedRoseTest {
         Item item = new Item("Conjured", 10, 26);
         Item[] conjuredItems = new Item[]{ item };
         GildedRose conjuredItemsGildedRose = new GildedRose(conjuredItems);
-        IntStream.range(0, 10).forEach( x -> conjuredItemsGildedRose.updateQuality() );
+        IntStream.range(0, 11).forEach( x -> conjuredItemsGildedRose.updateQuality() );
 
-        assertEquals("Conjured, 0, 6\n", conjuredItemsGildedRose.toString());
+        assertEquals("Conjured, -1, 3\n", conjuredItemsGildedRose.toString());
     }
 
 }

@@ -5,7 +5,7 @@ public class ConcertPass extends Quality {
     private static final int PASS_SELL_IN_SECOND_LIMIT = 5;
 
     @Override
-    public void update(Item item) {
+    public void updateQuality(Item item) {
         increaseQuality(item);
 
         if (item.sellIn <= PASS_SELL_IN_FIRST_LIMIT)
@@ -13,13 +13,21 @@ public class ConcertPass extends Quality {
 
         if (item.sellIn <= PASS_SELL_IN_SECOND_LIMIT)
             increaseQuality(item);
-
-        updateSellIn(item);
     }
 
     @Override
-    protected void expires(Item item) {
+    public void updateExpired(Item item) {
         item.quality = 0;
+    }
+
+    @Override
+    public boolean hasExpired(Item item) {
+        return item.sellIn < 0;
+    }
+
+    @Override
+    public void updateSellIn(Item item) {
+        item.sellIn--;
     }
 
     @Override

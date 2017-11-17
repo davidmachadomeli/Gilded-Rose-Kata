@@ -9,18 +9,24 @@ class GildedRose {
     private Normal normalQuality = new Normal();
 
     public GildedRose(Item[] items) {
-        this.items = items;
-    }
-
-    public void updateQuality() {
         qualities = new ArrayList<>();
         qualities.add(new Legendary());
         qualities.add(new AgedBrie());
         qualities.add(new ConcertPass());
         qualities.add(new Conjured());
 
-        for (Item item : items)
-            getQuality(item).update(item);
+        this.items = items;
+    }
+
+    public void updateQuality() {
+        for (Item item : items) {
+            Quality itemType = getQuality(item);
+            itemType.updateQuality(item);
+            itemType.updateSellIn(item);
+            if(itemType.hasExpired(item)) {
+                itemType.updateExpired(item);
+            }
+        }
     }
 
     private Quality getQuality(Item item) {
