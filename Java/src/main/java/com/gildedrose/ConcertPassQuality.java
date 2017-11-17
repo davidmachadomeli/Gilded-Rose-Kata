@@ -20,4 +20,9 @@ public class ConcertPassQuality extends Quality {
             item.quality = 0;
         }
     }
+
+    @Override
+    public boolean applies(Item item) {
+        return "Backstage passes to a TAFKAL80ETC concert".equals(item.name);
+    }
 }

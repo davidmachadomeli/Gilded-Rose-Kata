@@ -1,32 +1,35 @@
 package com.gildedrose;
 
+import java.util.ArrayList;
+
 class GildedRose {
 
     private Item[] items;
+    private ArrayList<Quality> qualities;
+    private NormalQuality normalQuality = new NormalQuality();
 
     public GildedRose(Item[] items) {
         this.items = items;
     }
 
     public void updateQuality() {
+        qualities = new ArrayList<>();
+        qualities.add(new LegendaryQuality());
+        qualities.add(new AgedBrieQuality());
+        qualities.add(new ConcertPassQuality());
+
         for (Item item : items)
-            updateQualityForOneItem(item);
+            getQuality(item).update(item);
     }
 
-    private void updateQualityForOneItem(Item item) {
-        Quality quality = new NormalQuality();
-        switch (item.name) {
-            case "Sulfuras, Hand of Ragnaros":
-                quality = new LegendaryQuality();
-                break;
-            case "Aged Brie":
-                quality = new AgedBrieQuality();
-                break;
-            case "Backstage passes to a TAFKAL80ETC concert":
-                quality = new ConcertPassQuality();
-                break;
+    private Quality getQuality(Item item) {
+        for (Quality quality : qualities) {
+            if (quality.applies(item)) {
+                return quality;
+            }
         }
-        quality.update(item);
+
+        return normalQuality;
     }
 
     @Override

@@ -11,4 +11,9 @@ public class AgedBrieQuality extends Quality {
             increaseQuality(item);
         }
     }
+
+    @Override
+    public boolean applies(Item item) {
+        return "Aged Brie".equals(item.name);
+    }
 }

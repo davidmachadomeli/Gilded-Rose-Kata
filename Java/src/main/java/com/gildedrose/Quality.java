@@ -18,4 +18,6 @@ public abstract class Quality {
     protected void updateSellIn(Item item) {
         item.sellIn = item.sellIn - 1;
     }
+
+    public abstract boolean applies(Item item);
 }

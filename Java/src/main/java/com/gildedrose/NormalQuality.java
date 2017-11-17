@@ -12,4 +12,9 @@ public class NormalQuality extends Quality {
             decreaseQuality(item);
         }
     }
+
+    @Override
+    public boolean applies(Item item) {
+        return true;
+    }
 }
