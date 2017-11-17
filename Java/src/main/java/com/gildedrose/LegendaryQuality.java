@@ -1,6 +1,6 @@
 package com.gildedrose;
 
-public class LegendaryQuality implements Quality {
+public class LegendaryQuality extends Quality {
     @Override
     public void update(Item item) {
 

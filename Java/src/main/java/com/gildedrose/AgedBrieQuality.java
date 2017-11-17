@@ -1,10 +1,14 @@
 package com.gildedrose;
 
-public class AgedBrieQuality implements Quality {
+public class AgedBrieQuality extends Quality {
     @Override
     public void update(Item item) {
-        if (item.quality < 50) {
-            item.quality = item.quality + 1;
+        increaseQuality(item);
+
+        updateSellIn(item);
+
+        if (item.sellIn < 0) {
+            increaseQuality(item);
         }
     }
 }

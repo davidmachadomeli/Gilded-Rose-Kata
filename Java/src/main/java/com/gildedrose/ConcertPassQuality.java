@@ -1,6 +1,6 @@
 package com.gildedrose;
 
-public class ConcertPassQuality implements Quality {
+public class ConcertPassQuality extends Quality {
     private static final int PASS_SELL_IN_FIRST_LIMIT = 10;
     private static final int PASS_SELL_IN_SECOND_LIMIT = 5;
 
@@ -13,11 +13,11 @@ public class ConcertPassQuality implements Quality {
 
         if (item.sellIn <= PASS_SELL_IN_SECOND_LIMIT)
             increaseQuality(item);
-    }
 
-    private void increaseQuality(Item item) {
-        if (item.quality < 50) {
-            item.quality = item.quality + 1;
+        updateSellIn(item);
+
+        if (item.sellIn < 0) {
+            item.quality = 0;
         }
     }
 }

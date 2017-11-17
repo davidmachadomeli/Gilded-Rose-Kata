@@ -1,11 +1,15 @@
 package com.gildedrose;
 
-public class NormalQuality implements Quality {
+public class NormalQuality extends Quality {
 
     @Override
     public void update(Item item) {
-        if (item.quality > 0) {
-            item.quality = item.quality - 1;
+        decreaseQuality(item);
+
+        updateSellIn(item);
+
+        if (item.sellIn < 0) {
+            decreaseQuality(item);
         }
     }
 }
