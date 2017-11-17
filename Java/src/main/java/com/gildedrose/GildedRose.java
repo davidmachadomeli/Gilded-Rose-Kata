@@ -2,9 +2,6 @@ package com.gildedrose;
 
 class GildedRose {
 
-
-    private static final int PASS_SELL_IN_FIRST_LIMIT = 10;
-    private static final int PASS_SELL_IN_SECOND_LIMIT = 5;
     private Item[] items;
 
     public GildedRose(Item[] items) {
@@ -25,26 +22,19 @@ class GildedRose {
     }
 
     private void updateQualityOfItem(Item item) {
+        Quality quality = new NormalQuality();
         switch (item.name) {
             case "Sulfuras, Hand of Ragnaros":
+                quality = new LegendaryQuality();
                 break;
             case "Aged Brie":
-                increaseQuality(item);
+                quality = new AgedBrieQuality();
                 break;
             case "Backstage passes to a TAFKAL80ETC concert":
-                increaseQuality(item);
-
-                if (item.sellIn <= PASS_SELL_IN_FIRST_LIMIT)
-                    increaseQuality(item);
-
-                if (item.sellIn <= PASS_SELL_IN_SECOND_LIMIT)
-                    increaseQuality(item);
-
-                break;
-            default:
-                decreaseQuality(item);
+                quality = new ConcertPassQuality();
                 break;
         }
+        quality.update(item);
     }
 
     private void updateQualityOfExpiredItem(Item expiredItem) {
