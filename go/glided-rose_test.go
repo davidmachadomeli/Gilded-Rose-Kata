@@ -4,12 +4,13 @@ import (
 	"testing"
 	"github.com/stretchr/testify/assert"
 	"os"
+	"github.com/davidmachadomeli/Gilded-Rose-Kata/go/item"
 )
 
-var itemsBase []*Item
+var itemsBase []*item.Item
 
 func TestMain(m *testing.M) {
-	itemsBase = []*Item{
+	itemsBase = []*item.Item{
 		{"Sword of Burning Fire", 10, 26},
 		{"Aged Brie", 10, 0},
 		{"Vest of Hermes", 5, 7},
@@ -44,8 +45,8 @@ func Test_Update_Quality_For_Until_Items_Expire(t *testing.T) {
 }
 
 
-func InitTestItems() []*Item {
-	its := []*Item{}
+func InitTestItems() []*item.Item {
+	its := []*item.Item{}
 
 	for _, testItem := range itemsBase {
 		newitem := *testItem
