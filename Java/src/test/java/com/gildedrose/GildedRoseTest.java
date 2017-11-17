@@ -19,6 +19,7 @@ public class GildedRoseTest {
         this.items = new Item[] {
                 new Item("Sword of Burning Fire", 10, 26),
                 new Item("Aged Brie", 10, 0),
+                new Item("Aged Brie", 10, 45),
                 new Item("Vest of Hermes", 5, 7),
                 new Item("Backstage passes to a TAFKAL80ETC concert", 10, 24),
                 new Item("Sulfuras, Hand of Ragnaros", 0, 80),
@@ -47,6 +48,7 @@ public class GildedRoseTest {
         assertEquals(
             "Sword of Burning Fire, 9, 25\n" +
             "Aged Brie, 9, 1\n" +
+            "Aged Brie, 9, 46\n" +
             "Vest of Hermes, 4, 6\n" +
             "Backstage passes to a TAFKAL80ETC concert, 9, 26\n" +
             "Sulfuras, Hand of Ragnaros, 0, 80\n" +
@@ -64,6 +66,7 @@ public class GildedRoseTest {
         assertEquals(
                 "Sword of Burning Fire, -1, 14\n" +
                 "Aged Brie, -1, 12\n" +
+                "Aged Brie, -1, 50\n" +
                 "Vest of Hermes, -6, 0\n" +
                 "Backstage passes to a TAFKAL80ETC concert, -1, 0\n" +
                 "Sulfuras, Hand of Ragnaros, 0, 80\n" +
