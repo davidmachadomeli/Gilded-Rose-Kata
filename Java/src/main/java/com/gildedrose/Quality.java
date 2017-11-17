@@ -5,13 +5,13 @@ public abstract class Quality {
 
     protected void increaseQuality(Item item) {
         if (item.quality < 50) {
-            item.quality = item.quality + 1;
+            item.quality++;
         }
     }
 
     protected void decreaseQuality(Item item) {
         if (item.quality > 0) {
-            item.quality = item.quality - 1;
+            item.quality--;
         }
     }
 

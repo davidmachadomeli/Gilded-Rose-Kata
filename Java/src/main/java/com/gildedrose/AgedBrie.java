@@ -1,21 +1,20 @@
 package com.gildedrose;
 
-public class NormalQuality extends Quality {
-
+public class AgedBrie extends Quality {
     @Override
     public void update(Item item) {
-        decreaseQuality(item);
+        increaseQuality(item);
 
         updateSellIn(item);
     }
 
     @Override
     protected void expires(Item item) {
-        decreaseQuality(item);
+        increaseQuality(item);
     }
 
     @Override
     public boolean applies(Item item) {
-        return true;
+        return "Aged Brie".equals(item.name);
     }
 }

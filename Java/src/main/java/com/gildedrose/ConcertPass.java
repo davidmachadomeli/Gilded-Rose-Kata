@@ -1,6 +1,6 @@
 package com.gildedrose;
 
-public class ConcertPassQuality extends Quality {
+public class ConcertPass extends Quality {
     private static final int PASS_SELL_IN_FIRST_LIMIT = 10;
     private static final int PASS_SELL_IN_SECOND_LIMIT = 5;
 

@@ -6,7 +6,7 @@ class GildedRose {
 
     private Item[] items;
     private ArrayList<Quality> qualities;
-    private NormalQuality normalQuality = new NormalQuality();
+    private Normal normalQuality = new Normal();
 
     public GildedRose(Item[] items) {
         this.items = items;
@@ -14,9 +14,10 @@ class GildedRose {
 
     public void updateQuality() {
         qualities = new ArrayList<>();
-        qualities.add(new LegendaryQuality());
-        qualities.add(new AgedBrieQuality());
-        qualities.add(new ConcertPassQuality());
+        qualities.add(new Legendary());
+        qualities.add(new AgedBrie());
+        qualities.add(new ConcertPass());
+        qualities.add(new Conjured());
 
         for (Item item : items)
             getQuality(item).update(item);
