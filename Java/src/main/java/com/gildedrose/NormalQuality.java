@@ -7,10 +7,11 @@ public class NormalQuality extends Quality {
         decreaseQuality(item);
 
         updateSellIn(item);
+    }
 
-        if (item.sellIn < 0) {
-            decreaseQuality(item);
-        }
+    @Override
+    protected void expires(Item item) {
+        decreaseQuality(item);
     }
 
     @Override

@@ -17,7 +17,12 @@ public abstract class Quality {
 
     protected void updateSellIn(Item item) {
         item.sellIn = item.sellIn - 1;
+        if (item.sellIn < 0) {
+            expires(item);
+        }
     }
+
+    protected abstract void expires(Item item);
 
     public abstract boolean applies(Item item);
 }

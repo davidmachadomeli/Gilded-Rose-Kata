@@ -6,10 +6,11 @@ public class AgedBrieQuality extends Quality {
         increaseQuality(item);
 
         updateSellIn(item);
+    }
 
-        if (item.sellIn < 0) {
-            increaseQuality(item);
-        }
+    @Override
+    protected void expires(Item item) {
+        increaseQuality(item);
     }
 
     @Override

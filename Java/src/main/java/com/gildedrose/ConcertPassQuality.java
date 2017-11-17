@@ -15,10 +15,11 @@ public class ConcertPassQuality extends Quality {
             increaseQuality(item);
 
         updateSellIn(item);
+    }
 
-        if (item.sellIn < 0) {
-            item.quality = 0;
-        }
+    @Override
+    protected void expires(Item item) {
+        item.quality = 0;
     }
 
     @Override
