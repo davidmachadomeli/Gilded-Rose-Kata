@@ -1,62 +1,53 @@
 package com.gildedrose;
 
+import com.gildedrose.items.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 class GildedRose {
-    Item[] items;
+
+
+    private static final Map<String, ItemFactory> itemMap;
+    static {
+        itemMap = new HashMap<>();
+        itemMap.put("Sword of Burning Fire"                     , new RegularFactory());
+        itemMap.put("Vest of Hermes"                            , new RegularFactory());
+        itemMap.put("Aged Brie"                                 , new GoodAgingFactory());
+        itemMap.put("Backstage passes to a TAFKAL80ETC concert" , new DemandedFactory());
+        itemMap.put("Sulfuras, Hand of Ragnaros"                , new StaticFactory());
+    }
+
+
+    private List<IItem> items;
 
     public GildedRose(Item[] items) {
-        this.items = items;
+
+        List<IItem> classifiedItems = new ArrayList<>();
+
+        for (Item item: items) {
+            IItem classifiedItem = itemMap.get(item.name).make(item);
+            classifiedItems.add(classifiedItem);
+        }
+
+        this.items = classifiedItems;
     }
 
     public void updateQuality() {
-        for (int i = 0; i < items.length; i++) {
-            if (!items[i].name.equals("Aged Brie")
-                    && !items[i].name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                if (items[i].quality > 0) {
-                    if (!items[i].name.equals("Sulfuras, Hand of Ragnaros")) {
-                        items[i].quality = items[i].quality - 1;
-                    }
-                }
-            } else {
-                if (items[i].quality < 50) {
-                    items[i].quality = items[i].quality + 1;
+        for (IItem item : items)
+            item.updateQuality();
+    }
 
-                    if (items[i].name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                        if (items[i].sellIn < 11) {
-                            if (items[i].quality < 50) {
-                                items[i].quality = items[i].quality + 1;
-                            }
-                        }
 
-                        if (items[i].sellIn < 6) {
-                            if (items[i].quality < 50) {
-                                items[i].quality = items[i].quality + 1;
-                            }
-                        }
-                    }
-                }
-            }
-
-            if (!items[i].name.equals("Sulfuras, Hand of Ragnaros")) {
-                items[i].sellIn = items[i].sellIn - 1;
-            }
-
-            if (items[i].sellIn < 0) {
-                if (!items[i].name.equals("Aged Brie")) {
-                    if (!items[i].name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                        if (items[i].quality > 0) {
-                            if (!items[i].name.equals("Sulfuras, Hand of Ragnaros")) {
-                                items[i].quality = items[i].quality - 1;
-                            }
-                        }
-                    } else {
-                        items[i].quality = items[i].quality - items[i].quality;
-                    }
-                } else {
-                    if (items[i].quality < 50) {
-                        items[i].quality = items[i].quality + 1;
-                    }
-                }
-            }
+    @Override
+    public String toString() {
+        String str = "";
+        for (IItem i : this.items) {
+            str += i.toString();
+            str += "\n";
         }
+        return str;
     }
 }
